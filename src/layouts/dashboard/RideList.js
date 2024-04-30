@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import RideshareContract from '../../../build/contracts/Rideshare.json'
 import store from '../../store'
 import JoinRideContainer from '../../rideshare/ui/joinride/JoinRideContainer'
-import { Link } from 'react-router'
+import Ride from './Ride'
+
 
 const contract = require('truffle-contract')
 
@@ -45,21 +46,21 @@ class RideList extends Component {
 
         rideshareInstance.getRideCount.call()
         .then(function(result) {
-          console.log('get rideshare count')
-          console.log(result)
+          // console.log('get rideshare count', result)
+          // console.log(result)
           let rideshareCount = result["c"][0];
 
           for (let i = 0; i < rideshareCount; i++) {
             rideshareInstance.getRide.call(i)
             .then(function(result) {
               // If no error, login user.
-              console.log('getridesharecount')
-              console.log(result)
+              // console.log('getridesharecount')
+              // console.log(result)
               var tempArr = _this.state.rideshares;
               let tempRideshares = tempArr.concat([result]);
               _this.setState({rideshares: tempRideshares})
-              console.log('test2');
-              console.log(_this.state.rideshares);
+              // console.log('test2');
+              // console.log(_this.state.rideshares);
               // debugger
               // return result;
               // return dispatch(loginUser())
@@ -99,27 +100,22 @@ class RideList extends Component {
   render() {
     let web3 = store.getState().web3.web3Instance
 
+    
     if (this.state.rideshareLoading) {
       return (
         <p>Loading</p>
       )
     } else {
+      // console.log('rides', this.state.rideshares)
       return(
-        <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
+            <div className="grid grid-cols-2 gap-y-4 gap-x-10 mt-10">
               {this.state.rideshares.map((ride, i) => {
-                console.log(ride);
+                console.log('ride', ride);
                 return (
-                  <p>{ride[0]}, {web3.fromWei(ride[1], "ether" ).toNumber()}, {ride[2]["c"][0]}, {ride[3]}, {ride[4]}, 
-                  {this.rideshareButton(this.state.passengers[i].indexOf(web3.eth.accounts[0]) > -1, ride[1],i)}
-                  <Link to={`/details/${i}`}>Details</Link>
-                  </p>
+                  <Ride key={i} i={i} ride={ride} web3={web3} />
                 )
               })}
             </div>
-          </div>
-        </main>
       )
     }
   }

@@ -9,7 +9,6 @@ class Driver extends Component {
         <div className="pure-g">
           <div className="pure-u-1-1">
             <h1>Driver</h1>
-            <p>Form here</p>
             <CreateRideContainer/>
           </div>
         </div>

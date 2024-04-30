@@ -26,6 +26,8 @@ export function createRide(expected_payment, capacity, origin_address, destinati
           console.error(error);
         }
 
+        console.log('coinbase', coinbase)
+
         rideshare.deployed().then(function(instance) {
           rideshareInstance = instance
 
@@ -37,8 +39,9 @@ export function createRide(expected_payment, capacity, origin_address, destinati
           console.log(parseInt(expected_payment * Math.pow(10,18)));
 
           // Attempt to sign up user.
-          rideshareInstance.createRide(parseInt(expected_payment * Math.pow(10,18)), capacity, origin_address, destination_address, confirmed_at, depart_at, {from: coinbase})
+          rideshareInstance.createRide(parseInt(expected_payment), capacity, origin_address, destination_address, confirmed_at, depart_at, {from: coinbase})
           .then(function(result) {
+            console.log('result', result)
             // If no error, login user.
             return browserHistory.push('/dashboard')
           })
