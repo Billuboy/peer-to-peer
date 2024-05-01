@@ -24,6 +24,7 @@ class RideList extends Component {
   }
 
   getRides() {
+    console.log('store',store.getState())
     let web3 = store.getState().web3.web3Instance
 
     const rideshare = contract(RideshareContract)

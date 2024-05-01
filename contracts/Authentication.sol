@@ -5,6 +5,8 @@ import './zeppelin/lifecycle/Killable.sol';
 contract Authentication is Killable {
   struct User {
     bytes32 name;
+    bytes32 email;
+    string mobile;
   }
 
   mapping (address => User) public users;
@@ -28,15 +30,21 @@ contract Authentication is Killable {
   function login() constant
   public
   onlyExistingUser
-  returns (bytes32) {
-    return (users[msg.sender].name);
+  returns (address _user, bytes32 _name, bytes32 _email, string _mobile) {
+    User user = users[msg.sender];
+    return ( 
+      msg.sender,
+      user.name,
+      user.email,
+      user.mobile
+    );
   }
 
-  function signup(bytes32 name)
+  function signup(bytes32 name, bytes32 email, string mobile)
   public
   payable
   onlyValidName(name)
-  returns (bytes32) {
+  returns (address _user, bytes32 _name, bytes32 _email, string _mobile) {
     // Check if user exists.
     // If yes, return user name.
     // If no, check if name was sent.
@@ -45,26 +53,45 @@ contract Authentication is Killable {
     if (users[msg.sender].name == 0x0)
     {
         users[msg.sender].name = name;
+        users[msg.sender].email = email;
+        users[msg.sender].mobile = mobile;
 
-        return (users[msg.sender].name);
+        return (
+          msg.sender,
+          users[msg.sender].name,
+          users[msg.sender].email,
+          users[msg.sender].mobile
+        );
     }
 
-    return (users[msg.sender].name);
+    return (
+      msg.sender,
+      users[msg.sender].name,
+      users[msg.sender].email,
+      users[msg.sender].mobile
+    );
   }
 
-  function update(bytes32 name)
+  function update(bytes32 name, bytes32 email, string mobile)
   public
   payable
   onlyValidName(name)
   onlyExistingUser
-  returns (bytes32) {
+  returns (address _user, bytes32 _name, bytes32 _email, string _mobile) {
     // Update user name.
 
     if (users[msg.sender].name != 0x0)
     {
         users[msg.sender].name = name;
+        users[msg.sender].email = email;
+        users[msg.sender].mobile = mobile;
 
-        return (users[msg.sender].name);
+        return (
+          msg.sender,
+          users[msg.sender].name,
+          users[msg.sender].email,
+          users[msg.sender].mobile
+        );
     }
   }
 }

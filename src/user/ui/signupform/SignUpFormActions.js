@@ -29,13 +29,15 @@ export function signUpUser(name) {
           authenticationInstance = instance
 
           // Attempt to sign up user.
-          authenticationInstance.signup(name, {from: coinbase})
+          authenticationInstance.signup(name, 'someemail@mail.com', '9999999999', {from: coinbase})
           .then(function(result) {
+            console.log('result-singup', result)
             // If no error, login user.
             return dispatch(loginUser())
           })
           .catch(function(result) {
-            // If error...
+            // If error...'
+            console.log('result-error', result)
           })
         })
       })

@@ -86,7 +86,7 @@ class RideDetails extends Component {
   render() {
     let web3 = store.getState().web3.web3Instance
 
-    if (this.state.passengerLoaded == false) {
+    if (this.state.passengerLoaded === false) {
       return (
         <p>Loading...</p>
       )
@@ -94,16 +94,16 @@ class RideDetails extends Component {
       let rideId = this.props.rideId;
       let ride = this.state.ride;
       let isPassenger = (this.state.passenger.indexOf(web3.eth.accounts[0]) > -1);
-      let isDriver = (ride[0] == web3.eth.accounts[0]);
+      let isDriver = (ride[0] === web3.eth.accounts[0]);
       let passengerState = this.state.passengerState;
       let passengerStates = this.state.passengerStates;
       let passenger = this.state.passenger;
 
       if (isPassenger) {
         let confirmDriverMet;
-        if (passengerState == "initial") {
+        if (passengerState === "initial") {
           confirmDriverMet = <ConfirmDriverMetContainer ride_number={rideId}/>;
-        } else if (passengerState == "enRoute") {
+        } else if (passengerState === "enRoute") {
           confirmDriverMet = <ArrivedContainer ride_number={rideId} />
         }
 
@@ -121,8 +121,8 @@ class RideDetails extends Component {
           </main>
         )
       } else if (isDriver) {
-        if (passengerStates.length == 0) {
-          return (<p>Loading...</p>)
+        if (passengerStates.length === 0) {
+          return (<p>No passenger yet</p>)
         } else {
           return(
             <main className="container">

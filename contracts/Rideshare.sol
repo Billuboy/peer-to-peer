@@ -41,6 +41,7 @@ contract Rideshare is Killable {
     
     passenger.price = msg.value;
     passenger.state = "initial";
+    rides[rideNumber].capacity = rides[rideNumber].capacity - 1;
     
     rides[rideNumber].passengerAccts.push(msg.sender) -1; //***
   }

@@ -39,10 +39,14 @@ export function loginUser() {
           // Attempt to login user.
           authenticationInstance.login({from: coinbase})
           .then(function(result) {
-            // If no error, login user.
-            var userName = web3.toUtf8(result)
+            const user = {
+              id: result[0],
+              name: web3.toUtf8(result[1]),
+              email: web3.toUtf8(result[2]),
+              mobile: result[3],
+            }
 
-            dispatch(userLoggedIn({"name": userName}))
+            dispatch(userLoggedIn(user))
 
             // Used a manual redirect here as opposed to a wrapper.
             // This way, once logged in a user can still access the home page.
@@ -56,9 +60,7 @@ export function loginUser() {
             return browserHistory.push('/dashboard')
           })
           .catch(function(result) {
-            // If error, go to signup page.
             console.error('Wallet ' + coinbase + ' does not have an account!')
-
             return browserHistory.push('/signup')
           })
         })

@@ -5,7 +5,9 @@ class SignUpForm extends Component {
     super(props)
 
     this.state = {
-      name: ''
+      name: '',
+      email: '',
+      mobile: ''
     }
   }
 
