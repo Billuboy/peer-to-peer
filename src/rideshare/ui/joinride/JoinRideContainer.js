@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import JoinRide from './JoinRide'
-import { joinRide } from './JoinRideActions'
+import { joinRide } from '../../../layouts/dashboard/JoinRideActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {}

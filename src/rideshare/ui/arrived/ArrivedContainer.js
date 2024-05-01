@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Arrived from './Arrived'
-import { arrived } from './ArrivedActions'
+import { arrived } from '../../../layouts/details/ArrivedActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {}
