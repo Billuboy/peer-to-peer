@@ -4,7 +4,7 @@ import store from '../../../store'
 
 const contract = require('truffle-contract')
 
-export function signUpUser(name) {
+export function signUpUser(name, email, mobile) {
   let web3 = store.getState().web3.web3Instance
 
   // Double-check web3's status.
@@ -29,7 +29,7 @@ export function signUpUser(name) {
           authenticationInstance = instance
 
           // Attempt to sign up user.
-          authenticationInstance.signup(name, 'someemail@mail.com', '9999999999', {from: coinbase})
+          authenticationInstance.signup(name, email, mobile, {from: coinbase})
           .then(function(result) {
             console.log('result-singup', result)
             // If no error, login user.

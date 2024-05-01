@@ -24,6 +24,10 @@ const statusMap = {
     text: 'Ride confirmed',
     color: 'text-green-700',
   },
+  passengersConfirmed: {
+    text: 'Ride confirmed',
+    color: 'text-green-700',
+  },
   completion: {
     text: 'Ride completed',
     color: 'text-blue-600',
